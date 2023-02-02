@@ -1,11 +1,9 @@
 /**
- * Entry point for CanvasCollections
- * - Check the URL and page contents extract some context
- * - insert div.canvas-collections as the first child of div.right-of-crumbs
- * - add the CanvasCollections app to that div
+ * Entry point for usable-canvas-userscript
  */
-import App from "./App.svelte";
+
 import { checkContext } from "./lib/CanvasSetup";
+import App from "./App.svelte";
 
 // extract some useful context from the URL and the DOM
 const context = checkContext();
@@ -13,7 +11,7 @@ let app = null;
 
 // should the app be added to the current page?
 const SHOW_PAGES = [ "modules", "rubrics"]
-if (SHOW_PAGES.includes(context.currentPage)) {
+if (SHOW_PAGES.includes(context['currentPage'])) {
   // Insert the app somewhere on the page
 
   // insert the app as the first content of div.right-of-crumbs

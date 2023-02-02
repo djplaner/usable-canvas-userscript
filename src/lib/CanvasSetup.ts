@@ -45,7 +45,7 @@ export function checkContext(): object {
       const localCourseId = urlPartIncludingCourseId.split("/")[0];
       // if localCourseId is an integer, set context.courseId
       if (localCourseId.match(/^\d+$/)) {
-        context.courseId = localCourseId;
+        context.courseId = parseInt(localCourseId);
       }
     }
   }
@@ -56,8 +56,11 @@ export function checkContext(): object {
   }
 
   // extract from URL https://<hostname>/courses/<courseId>/<currentPage>
-  let regEx = new RegExp(`courses/${context.courseId}/(modules)(/*|#*|#[^/]+)$`);
-  context.currentPage = regEx.test(documentUrl);
+  let regEx = new RegExp(`courses/${context.courseId}/(.*)(/*|#*|#[^/]+)$`);
+  const matches = documentUrl.match(regEx)
+  if (matches) {
+    context.currentPage = matches[1];
+  }
 
   // editMode true iff a#easy_student_view exists
   // TODO - perhaps replace/extend this with another check using
@@ -257,11 +260,11 @@ export function getPageName(
     return
   }
 
-  if (pageName!=="") {
+/*  if (pageName!=="") {
     // only do this if we've a valid page name
     String.prototype.slugify = function (separator = "-") {
       return this.toString()
-        .normalize("NFD") // split an accented letter in the base letter and the acent
+        .normalize("NFD") // split an accented letter in the base letter and the accent
         .replace(/[\u0300-\u036f]/g, "") // remove all previously split accents
         .toLowerCase()
         .trim()
@@ -274,6 +277,6 @@ export function getPageName(
 
     wf_fetchData(apiUrl).then((msg) => {
         callBack(pageName, msg.body);
-    });
-  }
+    }); 
+  } */
 }

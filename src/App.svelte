@@ -1,6 +1,5 @@
 <script lang="ts">
   import { configStore  } from "./stores";
-  import { CanvasDetails } from "./lib/CanvasDetails";
 
   export let courseId: number;
   export let editMode: boolean;
@@ -17,9 +16,6 @@
 </script>
 
 <p class="hello">Hello world, on the {$configStore.currentPage}</p>
-
-
-
 
 <style>
   .hello {
