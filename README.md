@@ -46,3 +46,11 @@ The template seeks to provide
 
 1. Pick a name for your App and rename `App.svelte` and other stuff??
 2. Update the name of the repo in `meta.js`
+
+
+
+## Example
+
+As an example, the existing code produces a script that adds a `hello world` message to the top of the _Modules_ and _Rubrics_ pages of a Canvas course.
+
+[![Screenshot of the example](docs/images/usable-canvas-userscript.gif)](docs/images/usable-canvas-userscript.gif)
