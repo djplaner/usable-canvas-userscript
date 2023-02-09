@@ -74,6 +74,7 @@ export default {
 			esmExternals: true
 		}),
 		typescript({
+			rootDir: './src',
 			sourceMap: !production,
 			inlineSources: !production
 		}),

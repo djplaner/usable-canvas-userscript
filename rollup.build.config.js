@@ -119,6 +119,7 @@ export default [
 			}),
 
 			typescript({
+				rootDir: './src',
 				sourceMap: !production,
 				inlineSources: !production
 			}),
