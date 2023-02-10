@@ -10,8 +10,8 @@ const context = checkContext();
 let app = null;
 
 // should the app be added to the current page?
-const SHOW_PAGES = [ "modules", "rubrics"]
-if (SHOW_PAGES.includes(context['currentPage'])) {
+const SHOW_PAGES = ["modules", "rubrics"];
+if (SHOW_PAGES.includes(context["currentPage"])) {
   // Insert the app somewhere on the page
 
   // insert the app as the first content of div.right-of-crumbs
@@ -30,6 +30,11 @@ if (SHOW_PAGES.includes(context['currentPage'])) {
     target: div,
     props: context,
   });
-} 
+
+  // make sure we tidy up
+  addEventListener("beforeunload", (event) => {
+    app.$destroy();
+  });
+}
 
 export default app;
