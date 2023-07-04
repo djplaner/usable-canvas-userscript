@@ -12,18 +12,18 @@
 export function checkContext(): object {
   const location = window.location.href;
 
-  let context : {
-    editMode: boolean, // true, iff the "Student View" button is showing
-    courseId: number, // Canvas course id
+  let context: {
+    editMode: boolean; // true, iff the "Student View" button is showing
+    courseId: number; // Canvas course id
     // name of the Canvas course page we're on
     // e.g. "modules", "assignments", "pages", "files", "people", "settings"
-    currentPage: string,
-    csrfToken: string,  // cross-site request forgery token
+    currentPage: string;
+    csrfToken: string; // cross-site request forgery token
   } = {
-    editMode:  false,    
-    courseId: null,     
+    editMode: false,
+    courseId: null,
     currentPage: null,
-    csrfToken: null
+    csrfToken: null,
   };
 
   // replace # at end of string
@@ -57,9 +57,13 @@ export function checkContext(): object {
 
   // extract from URL https://<hostname>/courses/<courseId>/<currentPage>
   let regEx = new RegExp(`courses/${context.courseId}/(.*)(/*|#*|#[^/]+)$`);
-  const matches = documentUrl.match(regEx)
+  const matches = documentUrl.match(regEx);
   if (matches) {
     context.currentPage = matches[1];
+  } else {
+    // must be on the front page, set a default label that hopefully
+    // no-one will accidentally use as the name of a page
+    context.currentPage = "ccc_CourseFrontPage";
   }
 
   // editMode true iff a#easy_student_view exists
@@ -101,7 +105,6 @@ function setCsrfToken(): string {
 export async function requestCourseObject(courseId: number, csrfToken: string) {
   let callUrl = `/api/v1/courses/${courseId}`;
 
-
   const response = await fetch(callUrl, {
     method: "GET",
     credentials: "include",
@@ -112,9 +115,7 @@ export async function requestCourseObject(courseId: number, csrfToken: string) {
     },
   });
   if (!response.ok) {
-    throw new Error(
-      `requestCourseObject: error ${response.status}`
-    );
+    throw new Error(`requestCourseObject: error ${response.status}`);
   }
 
   const data = await response.json();
@@ -253,14 +254,13 @@ export function getPageName(
   courseId: string,
   callBack: Function
 ) {
-
-  if (pageName === undefined ) {
-    console.trace()
-    alert("getPageName: pageName is undefined")
-    return
+  if (pageName === undefined) {
+    console.trace();
+    alert("getPageName: pageName is undefined");
+    return;
   }
 
-/*  if (pageName!=="") {
+  /*  if (pageName!=="") {
     // only do this if we've a valid page name
     String.prototype.slugify = function (separator = "-") {
       return this.toString()
